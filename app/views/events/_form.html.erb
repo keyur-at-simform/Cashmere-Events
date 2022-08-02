@@ -27,7 +27,7 @@
               <div class="row">
                 <div class="col-md-12 mb-4">
                   <div class="form-outline">
-                    <%= form.text_field :category, class:"form-control form-control-lg"  %>
+                    <%= form.select :category, ['volunteer', 'health', 'course', 'theatre', 'dance', 'workshop', 'other..'], class:"form-control form-control-lg"  %>
                     <label class="form-label" for="firstName">Event Category</label>
                   </div>
                 </div>

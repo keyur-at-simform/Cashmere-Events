@@ -5,42 +5,52 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to "Free Events", free_event_path, class:"nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Today's Events", today_event_path, class:"nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "All Events", events_path, class:"nav-link active" %>
-        </li>
-        <li class="nav-item">
-          <% if user_signed_in? %>
-            <%= link_to "cart", cart_path, class:"nav-link active" %>
+      <% if user_signed_in? %>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%= link_to "Free Events", free_event_path, class:"nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Today's Events", today_event_path, class:"nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "All Events", events_path, class:"nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Cart", cart_path, class:"nav-link active" %>
+          </li>
+          <% if current_user.has_role? :admin %>
+            <li class="nav-item">
+              <li><%= link_to "Create New Event", new_event_path, class:"nav-link active" %></li>
+            </li>
           <% end %>
-        </li>
-      </ul>
-       <%= form_tag(events_path, method: :get, class:"form-inline my-2 my-lg-0") do %>
-          <%= text_field_tag :search_query, params[:search_query] %>
-          <%= submit_tag ("Search"), class:"btn btn-outline-success my-2 my-sm-0" %>
-       <% end %>
+        </ul>
+        <div class="mx-auto">
+          <%= form_tag(events_path, method: :get, class:"form-inline my-2 my-lg-0") do %>
+            <%= text_field_tag :search_query, params[:search_query] %>
+            <%= submit_tag ("Search"), class:"btn btn-outline-success my-2 my-sm-0" %>
+          <% end %>
+        </div>
+      <% end %>
       <% if user_signed_in? %>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <%= current_user.first_name%> <%= current_user.last_name%>
           </a>
           <ul class="dropdown-menu">
-            <% if current_user.has_role? :admin %>
-              <li><%= link_to "List Your Event", new_event_path, class:"dropdown-item" %></li>
-            <% end %>
+            <li><%= link_to "Profile", profile_path, class:"dropdown-item" %></li>
             <li><hr class="dropdown-divider"></li>
             <li><%= button_to "Sign Out", destroy_user_session_path, method: :delete, class:"dropdown-item"%></li>
           </ul>
         </div>
-      <% else %>
-        <%= link_to "Sign In", new_user_session_path, class:"nav-item" %>
       <% end %>
     </div>
+
+    <% if not user_signed_in? %>
+      <div class="d-flex">
+        <%= link_to "Sign Up", new_user_registration_path, class:"btn btn-primary me-1" %></li>
+        <%= link_to "Sign In", new_user_session_path, class:"btn btn-primary" %></li>
+      </div>
+    <% end %>
   </div>
 </nav>

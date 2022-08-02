@@ -1,2 +1,12 @@
-<%= render "events/event" %>
-  
+<% if  @events.blank? %>
+  <div class="container" style="height: 100vh;">
+    <div>
+      <h6>There is no event for today!! </h6>
+    </div> 
+    <p> We are sorry for that ! Please try Tomorrow!!</p>
+  </div>
+<% else %>
+  <div style="height: 100vh;">
+    <%= render "events/event" %>
+  </div>
+<% end %>

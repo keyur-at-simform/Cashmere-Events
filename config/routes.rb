@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get "cart", to: "pages#cart"
 
   devise_for :users
+  get "profile", to:"users#profile"
+  
   resources :events
   post "checkout/create", to: "checkout#create", as: "checkout_create"
 

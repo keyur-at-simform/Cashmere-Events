@@ -1,50 +1,54 @@
-<section class="h-100" style="background-color: #eee;">
-  <div class="container h-100 py-5">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-10">
+<% if @cart.empty? %>
+  <div class="container" style="height: 100vh;">
+    <div>
+      <h6>There is nothing in your cart!! </h6>
+    </div> 
+    <p> Go and Explore latest Events in your City!!</p>
+  </div>
+<% else %>
+  <div style="height: 100vh">
+    <section>
+      <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-10">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
-        </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+            </div>
 
-        <% if @cart.empty? %>
-          <div>
-            <h6>There is nothing in your cart!! </h6>
-          </div> 
-          <p> Go and Explore latest Events in your City!!</p>
-        <% end %>
-
-        <% @cart.each do |event| %>
-          <div class="card rounded-3 mb-4">
-            <div class="card-body p-4">
-              <div class="row d-flex justify-content-between align-items-center">
-                <div class="col-md-2 col-lg-2 col-xl-2">
-                  <%= image_tag event.poster.variant(resize: "1008x552"), class: "img-fluid rounded-3"%>
-                </div>
-                <div class="col-md-3 col-lg-3 col-xl-3">
-                  <p class="lead fw-normal mb-2"><%= event.name %></p>
-                  <p><span class="text-muted">Date: <%= event.date %> </span> <span class="text-muted">Venue: <%= event.venue + event.city %> </span>Grey</p>
-                </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                  <h5 class="mb-0">₹<%= (event.ticket_price/100).to_f %></h5>
-                </div>
-                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                  <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+            <% @cart.each do |event| %>
+              <div class="card rounded-3 mb-4">
+                <div class="card-body p-4">
+                  <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <%= image_tag event.poster.variant(resize: "1008x552"), class: "img-fluid rounded-3"%>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <p class="lead fw-normal mb-2"><%= event.name %></p>
+                      <p><span class="text-muted">Date: <%= event.date %> </span> <span class="text-muted">Venue: <%= event.venue + event.city %> </span>Grey</p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                      <h5 class="mb-0">₹<%= (event.ticket_price/100).to_f %></h5>
+                    </div>
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        <% end %>
-
-        <div class="card">
-          <div class="card-body">
-            <% if @cart.present? %>
-              <%= button_to "Pay Now!!", checkout_create_path, class:"btn btn-warning btn-block btn-lg", remote: true, data: { disable_with: "validating..."}  %>
             <% end %>
+
+            <div class="card">
+              <div class="card-body">
+                <% if @cart.present? %>
+                  <%= button_to "Pay Now!!", checkout_create_path, class:"btn btn-warning btn-block btn-lg", remote: true, data: { disable_with: "validating..."}  %>
+                <% end %>
+              </div>
+            </div>
+
           </div>
         </div>
-
       </div>
-    </div>
+    </section>
   </div>
-</section>
+<% end %>

@@ -30,6 +30,11 @@
 
 body {
   background: #f2f2f2;
+  padding-top: 70px;
+}
+
+.alert{
+  margin-bottom: 0px !important;
 }
 
 .success-page {
@@ -78,4 +83,8 @@ body {
 .content a:hover {
   text-decoration: none;
   background: rgb(39 115 184);
+}
+
+a{
+  text-decoration: none !important;
 }

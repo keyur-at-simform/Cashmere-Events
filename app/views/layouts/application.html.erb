@@ -15,9 +15,24 @@
 
   <body>
     <%= render "layouts/header" %>
-    <p class="notice"><%= notice %></p>   
-    <p class="alert"><%= alert %></p>   
-    <%= yield %>
+    <div class="bg-transparent">
+      <% flash.each do |name,msg|%>
+        <%if name=='alert'%>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%=msg%>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <%else%>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= msg %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+      <%end%>
+    </div>
+    <div>
+      <%= yield %>
+    </div>
     <%= render "layouts/footer" %>
   </body>
 </html>
